@@ -1,0 +1,104 @@
+Step 1 - Web Scraping
+
+Problem: Need to gather data from multiple sites. 
+
+First Scrape: nugdatabase.com
+
+2020-06-01
+- It was very exciting to scrape the web page and format the information into a DataFrame, however, my excitment evaporated quickly upon realizing that this was only page 1 of 39. 
+
+2020-06-05
+- My next step is to write a script that can loop through each page and return the information I need, just as I did with the first page. 
+- Once I have this script I can easily apply it to the other websites I want to scrape to gather the information I need. 
+
+... one hour later....
+
+- Wooo! I was able to successfully scrape multiple pages from nugdatabase.com. 
+I can mostly likely reuse the code in `multipage_scrape` with modification to scrape other pages for information I might need. 
+
+- Right now my features are stored in lists. I need to convert them into a pandas dataframe. 
+- Successfully completed the first scrape.
+
+Now I'll be moving on to kindgreenbuds.com to gather THC%/CBD% and additional growing information if available.
+Stay tuned...
+
+2020-06-06
+I think I have finally worked out the code to scrape cannaconnection. 
+I'm feeling fairly confident in the amount of data I have now. 
+
+I am waiting on the scrape of the URLs so that I can loop through each individual page to extract strain features. 
+
+Once I have extracted all the data I need and filled my data frame, the next step is to combine all my dataframes into one so that I can begin to clean and explore the data I have. 
+
+I expect to have about 5000 data points prescrub for duplicates/etc. 
+
+2020-06-07
+I have written the script to webscrap cannaconnection. I think it's finally in a good place to collect the information I need and store it in dataframe. This particular script took sometime to get right but I'm pretty stoked that it's finally ready to go! The only thing is there are approximately 4600 pages to go through. This may take some time, I'm thinking of running the code in blocks using different slices of my ahref list to avoid overloading with 4600 requests. I can append each result to a DataFrame. 
+
+Now that I have scrapped both sites, I'm happy with the amount of datapoints I've collected. My next step is to combine both and try to filter out any duplicates and scrub any missing values. 
+
+After that, we can begin EDA and feature engineering. 
+
+2020-06-10
+Found a dataset on Kaggle that has similar strains to the ones I found on cannaconnection. it doesn't have THC/CBD content but it does have flavours, effects and descriptions which DOES contain information about THC and CBD levels. 
+
+This pisses me off because i spent a lot of time on my webscrape but the practice was good and I might be able to use the data I collected, however this dataset on Kaggle seems to fulfill my needs.
+
+My plan is to do a one-hot encoding on the effects and flavour columns as the unique values are limited for these. 
+
+For the description, I will do some NLP using a CountVectorizer(). 
+
+From a best practice standpoint I know that I should perform the encoding and 
+NLP after splitting the data into train and test sets. However, after spending considerable time with FeatureUnion and not being successful, I have decided to split the data after preprocessing. I know this will result in some leakage between the train and test set, but for the sake of my objective and in the interest of time, I'm moving forward with this plan. 
+
+2020-06-11
+Did some data visualization on all the columns. Interesting what the visualizations shows vs just looking at the pandas dataframe. 
+
+Looked at:
+- distribution of plant types
+- distribution of ratings
+- distribution of ratings v plant types
+- word cloud of effects
+- word cloud of flavours
+- word cloud combined (effects/flavors)
+- word cloud description
+
+I will spend a little more time today playing around with the visualizations. 
+My plan for Friday - Sunday is to:
+    1. Run the OHE on my effects/flavors
+    2. Perform a count CountVectorizer on my description columns
+    3. Split the data into train/test sets.
+    4. Begin preliminary modeling
+    5. Optimize hyperparameters
+        pipelines. 
+
+16-06-2020
+Ran first round of models. Returned ~60% accuracy on the test sets using default parameters.
+
+Over the next few days I plan to optimize the models and test different models using a pipeline. 
+
+I performed some analysis on the plant types and their associated effects and flavors. Will work on both the pipeline and the continued analysis in conjuction.
+
+.... few hours later
+Added some comments and markdown cells.
+
+Ran an ensemble bagging model and the accuracy was crap 50%. 
+
+21-06-2020
+I wasn't completely happy with the data I had. Over the weekend I wrote a workable script to webscrape cannaconnection.com. 
+I was able to create a csv file for each individual strain (gathering all the features the website had listed). 
+I read in all the csv files into a pandas DataFrame. To clean up the data I exported the file to excel to match up some values and deal with nulls. 
+
+I found this approach to be much easier than trying to manipulate each column in pandas. With excel I can manipulate every cell and view the entire dataset at once. 
+
+Once I scrub the excel file to the format I need/want - I'll load it back into pandas and do some EDA and modeling on this dataset. 
+
+23-06-2020
+Got scraping, modeling, eda, visualisations done on new dataset. 
+The results returned were abit better than the first attempt.
+
+
+24-06-2020
+Ran the model, cleaned up some code and uploaded all the files to github. May add additional comments to the notebook in a few days...
+
+Next step is to work on recommendation system post program. 
