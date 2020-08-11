@@ -1,4 +1,7 @@
 # cannabis_strain_investigation
+
+**I am in the process of updating this project. Stay tuned**
+
 BrainStation Capstone
 
 
